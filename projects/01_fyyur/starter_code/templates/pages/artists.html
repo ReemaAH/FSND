@@ -12,5 +12,8 @@
 		</a>
 	</li>
 	{% endfor %}
+	{% if not artists %}
+<h2>There are no artists  </h2>
+{% endif %}
 </ul>
 {% endblock %}
