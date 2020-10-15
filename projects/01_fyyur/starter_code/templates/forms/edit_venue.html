@@ -30,13 +30,56 @@
       <div class="form-group">
         <label for="genres">Genres</label>
         <small>Ctrl+Click to select multiple</small>
-        {{ form.genres(class_ = 'form-control', placeholder='Genres, separated by commas', id=form.state, autofocus = true) }}
+        {{ form.genres(class_ = 'form-control', placeholder='Genres, separated by commas', autofocus = true) }}
       </div>
       <div class="form-group">
+        <label for="genres">Website Link</label>
+        {{ form.website_link(class_ = 'form-control', placeholder='http://', autofocus = true) }}
+      </div>
+
+      <div class="form-group">
           <label for="genres">Facebook Link</label>
-          {{ form.facebook_link(class_ = 'form-control', placeholder='http://', id=form.state, autofocus = true) }}
+          {{ form.facebook_link(class_ = 'form-control', placeholder='http://', autofocus = true) }}
+        </div>
+        <div class="form-group">
+          <label for="genres">Image Link</label>
+          {{ form.image_link(class_ = 'form-control', placeholder='http://', autofocus = true) }}
+        </div>
+        <div class="form-group">
+          <label for="genres" >Seeking a talent?</label>
+          {{ form.seeking_a_talent }}
+        </div>
+        <div class="form-group" >
+          <label for="genres" id="seeking_a_talent_text_label">Seeking a talent description </label>
+          {{ form.seeking_a_talent_text(class_ = 'form-control', autofocus = true) }}
         </div>
       <input type="submit" value="Edit Venue" class="btn btn-primary btn-lg btn-block">
     </form>
   </div>
+  <script>window.jQuery || document.write('<script type="text/javascript" src="/static/js/libs/jquery-1.11.1.min.js"><\/script>')</script>
+</div>
+<script>
+
+  $("#seeking_a_talent").change(function() {
+    if (document.getElementById('seeking_a_talent').checked == true) {      
+      document.getElementById('seeking_a_talent_text').style.display = 'block';
+      document.getElementById('seeking_a_talent_text_label').style.display = 'block';
+    }
+    else {
+      document.getElementById('seeking_a_talent_text').style.display = 'none';
+      document.getElementById('seeking_a_talent_text_label').style.display = 'none';
+    }
+
+});
+
+
+if (document.getElementById('seeking_a_talent').checked == true) {
+      document.getElementById('seeking_a_talent_text').style.display = 'block';
+      document.getElementById('seeking_a_talent_text_label').style.display = 'block';
+    }
+    else {
+      document.getElementById('seeking_a_talent_text').style.display = 'none';
+      document.getElementById('seeking_a_talent_text_label').style.display = 'none';
+    }
+</script>
 {% endblock %}
