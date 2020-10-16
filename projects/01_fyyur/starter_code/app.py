@@ -170,7 +170,7 @@ def create_venue_submission():
       seeking_a_talent = False
     # here i created the new object
     new_venue = Venue(name=request.form['name'], city=request.form['city'], state=request.form['state'],
-                      address=request.form['address'], phone=request.form['phone'], genres=request.form['genres'], 
+                      address=request.form['address'], phone=request.form['phone'], genres=request.form.getlist('genres'), 
                       facebook_link=request.form['facebook_link'], website_link=request.form['website_link'],
                       image_link=request.form['image_link'], seeking_a_talent=seeking_a_talent,
                       seeking_talent_text=request.form.get('seeking_talent_text', ''))
@@ -374,7 +374,7 @@ def create_artist_submission():
       seeking_a_venue = False
     # create a new object fot artist 
     new_artist = Artist(name=request.form['name'], city=request.form['city'], state=request.form['state'],
-                        phone=request.form['phone'], genres=request.form['genres'], image_link=request.form['image_link'],
+                        phone=request.form['phone'], genres=request.form.getlist('genres'), image_link=request.form['image_link'],
                         facebook_link=request.form['facebook_link'], website_link=request.form['website_link'],
                         seeking_a_venue=seeking_a_venue,
                         seeking_venue_text=request.form.get('seeking_venue_text', ''))
