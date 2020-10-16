@@ -9,5 +9,5 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 # Connect to the database
 
 
-# TODO IMPLEMENT DATABASE URL
-SQLALCHEMY_DATABASE_URI = '<Put your local database url>'
+# TODO: connect to a local postgresql database (done)
+SQLALCHEMY_DATABASE_URI = 'postgresql://reema@localhost:5432/fyyur'
