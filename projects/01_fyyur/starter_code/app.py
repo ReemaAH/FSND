@@ -104,11 +104,13 @@ def show_venue(venue_id):
   # shows the venue page with the given venue_id
   venue = Venue.query.get(venue_id)
   # past shows
-  past_shows = Show.query.filter(Show.venue_id==venue_id, (Show.start_at < datetime.now()))
+  past_shows = db.session.query(Show).join(Venue).filter((Show.start_at <= datetime.now()))
+
   # upcomping shows
-  upcomping_shows = Show.query.filter(Show.venue_id==venue_id, (Show.start_at > datetime.now()))
-  # to avoind null values i checked here if there is a venue.seeking_talent_text value or not
-  if venue.seeking_talent_text:
+  upcomping_shows = db.session.query(Show).join(Venue).filter((Show.start_at > datetime.now()))
+
+  # to avoid null values i checked here if there is a venue.seeking_talent_text value or not
+  if venue.seeking_a_talent:
     data ={
       "id": venue.id,
       "name": venue.name,
@@ -230,11 +232,11 @@ def show_artist(artist_id):
   # here i retrived the artists data with the given id
   artist =  Artist.query.get(artist_id)
 
-  # past shows with filter by artist_id and show time <= datetime.now()
-  past_shows = Show.query.filter(Show.artist_id==artist_id, (Show.start_at <= datetime.now()))
+  # past shows
+  past_shows = db.session.query(Show).join(Artist).filter((Show.start_at <= datetime.now()))
 
-  # upcomping shows with filter by artist_id and show time > datetime.now()
-  upcomping_shows = Show.query.filter(Show.artist_id==artist_id, (Show.start_at > datetime.now()))
+  # upcomping shows
+  upcomping_shows = db.session.query(Show).join(Artist).filter((Show.start_at > datetime.now()))
 
   data={
     "id": artist.id,
