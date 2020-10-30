@@ -181,6 +181,8 @@ def create_app(test_config=None):
           'success': True,
           'question': random_question.format()
         })
+      else:
+        abort(404)
 
     else:
       abort(404)
