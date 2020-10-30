@@ -68,7 +68,7 @@ One note before you delve into your tasks: for each endpoint you are expected to
 
 REVIEW_COMMENT
 
-Endpoints
+## Endpoints
 GET '/categories'
 GET '/questions'
 DELETE '/questions/<int:question_id>'
@@ -78,7 +78,7 @@ GET '/categories/<int:category_id>/questions'
 POST '/quizzes'
 
 
-GET '/categories'
+#### GET '/categories'
 - This API get all categories 
 - General:
     - Request Arguments: None.
@@ -92,13 +92,15 @@ GET '/categories'
 '4' : "History",
 '5' : "Entertainment",
 '6' : "Sports"}
+```
 
-GET '/questions'
+#### GET '/questions'
 - This API get all questions , and they are paginated (10 per page)
 - General: 
     - Request Arguments: None.
     - Returns: questions list (paginated), total number of questions and categories list.
 - Sample: curl http://127.0.0.1:5000/questions
+```
 {
   "categories": {
     "1": "Science", 
@@ -186,7 +188,7 @@ GET '/questions'
 }
 ```
 
-DELETE /questions/<int:id>
+#### DELETE /questions/<int:id>
 - This API deletes a question by id
 - General:
     - Request Arguments: question id .
@@ -199,7 +201,7 @@ DELETE /questions/<int:id>
 }
 ```
 
-POST '/questions'
+#### POST '/questions'
 - This API create a question 
 - General
     - Request arguments: 
@@ -216,7 +218,7 @@ POST '/questions'
   "success": true
 }
 ```
-POST '/questions/search'
+#### POST '/questions/search'
 - This API search for a question by a search term
 - General:
     - Request arguments: searchTerm: string
@@ -240,7 +242,7 @@ POST '/questions/search'
 }
 ```
 
-GET /categories/<int:id>/questions
+#### GET /categories/<int:id>/questions
 - This API get the questions for the given category id 
 - General:
     - Request arguments: category id from the url parameters
@@ -248,7 +250,7 @@ GET /categories/<int:id>/questions
 
 - Sample: curl http://127.0.0.1:5000/categories/3/questions
 
-POST /quizzes
+####  POST /quizzes
 - This API to play the quiz
 - General:
     - Request:
