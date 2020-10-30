@@ -67,8 +67,6 @@ One note before you delve into your tasks: for each endpoint you are expected to
 9. Create error handlers for all expected errors including 400, 404, 422 and 500. 
 
 REVIEW_COMMENT
-```
-This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
 
 Endpoints
 GET '/categories'
@@ -87,7 +85,7 @@ GET '/categories'
     - Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
 
 - Sample: curl http://127.0.0.1:5000/categories
-
+```
 {'1' : "Science",
 '2' : "Art",
 '3' : "Geography",
@@ -186,6 +184,7 @@ GET '/questions'
   "success": true, 
   "total_questions": 19
 }
+```
 
 DELETE /questions/<int:id>
 - This API deletes a question by id
@@ -193,12 +192,13 @@ DELETE /questions/<int:id>
     - Request Arguments: question id .
     - Returns the id of deleted question.
 - Sample: curl http://127.0.0.1:5000/questions/18 -X DELETE
+```
 {
   "deleted": 18, 
   "success": true
 }
-
 ```
+
 POST '/questions'
 - This API create a question 
 - General
@@ -210,17 +210,20 @@ POST '/questions'
     Return:
     - JSON object with newly created question
 - Sample: curl http://127.0.0.1:5000/questions -X POST -H "Content-Type: application/json" -d '{ "question": "In which continent is Saudi Arabia ?", "answer": "Asia", "difficulty": 2, "category": "4" }'
+```
 {
   "created": 34, 
   "success": true
 }
-
+```
 POST '/questions/search'
 - This API search for a question by a search term
 - General:
     - Request arguments: searchTerm: string
     - Return: JSON object with matching questions
-- Sample: curl http://127.0.0.1:5000/questions/search -X POST -H "Content-Type: application/json" -d '{"searchTerm": "Saudi"}'
+- Sample: curl http://127.0.0.1:5000/questions/search -X POST -H "Content-Type: application/json" -d '
+{"searchTerm": "Saudi"}'
+```
 {
   "current_category": null, 
   "questions": [
@@ -235,6 +238,7 @@ POST '/questions/search'
   "success": true, 
   "total_questions": 1
 }
+```
 
 GET /categories/<int:id>/questions
 - This API get the questions for the given category id 
@@ -253,7 +257,7 @@ POST /quizzes
     - Return: JSON object with a random question and not in the previous questions
 
 - Sample: curl http://127.0.0.1:5000/quizzes -X POST -H "Content-Type: application/json" -d '{"previous_questions": [13, 14], "quiz_category": {"type": "Art", "id": "2"}}'
-
+```
 {
   "question": {
     "answer": "No", 
@@ -264,6 +268,7 @@ POST /quizzes
   }, 
   "success": true
 }
+``` 
 
 ## Testing
 To run the tests, run
