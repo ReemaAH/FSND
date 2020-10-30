@@ -72,14 +72,22 @@ This README is missing documentation of your endpoints. Below is an example for 
 
 Endpoints
 GET '/categories'
-GET ...
-POST ...
-DELETE ...
+GET '/questions'
+DELETE '/questions/<int:question_id>'
+POST '/questions'
+POST '/questions/search'
+GET '/categories/<int:category_id>/questions'
+POST '/quizzes'
+
 
 GET '/categories'
-- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
-- Request Arguments: None
-- Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
+- This API get all categories 
+- General:
+    - Request Arguments: None.
+    - Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
+
+- Sample: curl http://127.0.0.1:5000/categories
+
 {'1' : "Science",
 '2' : "Art",
 '3' : "Geography",
@@ -87,8 +95,175 @@ GET '/categories'
 '5' : "Entertainment",
 '6' : "Sports"}
 
-```
+GET '/questions'
+- This API get all questions , and they are paginated (10 per page)
+- General: 
+    - Request Arguments: None.
+    - Returns: questions list (paginated), total number of questions and categories list.
+- Sample: curl http://127.0.0.1:5000/questions
+{
+  "categories": {
+    "1": "Science", 
+    "2": "Art", 
+    "3": "Geography", 
+    "4": "History", 
+    "5": "Entertainment", 
+    "6": "Sports", 
+    "7": "Computer"
+  }, 
+  "questions": [
+    {
+      "answer": "Edward Scissorhands", 
+      "category": 5, 
+      "difficulty": 3, 
+      "id": 6, 
+      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+    }, 
+    {
+      "answer": "Brazil", 
+      "category": 6, 
+      "difficulty": 3, 
+      "id": 10, 
+      "question": "Which is the only team to play in every soccer World Cup tournament?"
+    }, 
+    {
+      "answer": "Uruguay", 
+      "category": 6, 
+      "difficulty": 4, 
+      "id": 11, 
+      "question": "Which country won the first ever soccer World Cup in 1930?"
+    }, 
+    {
+      "answer": "George Washington Carver", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 12, 
+      "question": "Who invented Peanut Butter?"
+    }, 
+    {
+      "answer": "Lake Victoria", 
+      "category": 3, 
+      "difficulty": 2, 
+      "id": 13, 
+      "question": "What is the largest lake in Africa?"
+    }, 
+    {
+      "answer": "The Palace of Versailles", 
+      "category": 3, 
+      "difficulty": 3, 
+      "id": 14, 
+      "question": "In which royal palace would you find the Hall of Mirrors?"
+    }, 
+    {
+      "answer": "Agra", 
+      "category": 3, 
+      "difficulty": 2, 
+      "id": 15, 
+      "question": "The Taj Mahal is located in which Indian city?"
+    }, 
+    {
+      "answer": "Escher", 
+      "category": 2, 
+      "difficulty": 1, 
+      "id": 16, 
+      "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+    }, 
+    {
+      "answer": "Mona Lisa", 
+      "category": 2, 
+      "difficulty": 3, 
+      "id": 17, 
+      "question": "La Giaconda is better known as what?"
+    }, 
+    {
+      "answer": "One", 
+      "category": 2, 
+      "difficulty": 4, 
+      "id": 18, 
+      "question": "How many paintings did Van Gogh sell in his lifetime?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 19
+}
 
+DELETE /questions/<int:id>
+- This API deletes a question by id
+- General:
+    - Request Arguments: question id .
+    - Returns the id of deleted question.
+- Sample: curl http://127.0.0.1:5000/questions/18 -X DELETE
+{
+  "deleted": 18, 
+  "success": true
+}
+
+```
+POST '/questions'
+- This API create a question 
+- General
+    - Request arguments: 
+        - question: string
+        - answer: string
+        - difficulty:int 
+        - category:string 
+    Return:
+    - JSON object with newly created question
+- Sample: curl http://127.0.0.1:5000/questions -X POST -H "Content-Type: application/json" -d '{ "question": "In which continent is Saudi Arabia ?", "answer": "Asia", "difficulty": 2, "category": "4" }'
+{
+  "created": 34, 
+  "success": true
+}
+
+POST '/questions/search'
+- This API search for a question by a search term
+- General:
+    - Request arguments: searchTerm: string
+    - Return: JSON object with matching questions
+- Sample: curl http://127.0.0.1:5000/questions/search -X POST -H "Content-Type: application/json" -d '{"searchTerm": "Saudi"}'
+{
+  "current_category": null, 
+  "questions": [
+    {
+      "answer": "Asia", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 34, 
+      "question": "In which continent is Saudi Arabia ?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 1
+}
+
+GET /categories/<int:id>/questions
+- This API get the questions for the given category id 
+- General:
+    - Request arguments: category id from the url parameters
+    - Return: JSON object with paginated matching questions.
+
+- Sample: curl http://127.0.0.1:5000/categories/3/questions
+
+POST /quizzes
+- This API to play the quiz
+- General:
+    - Request:
+        - quiz_category: JSON with type: string and id: string
+        - previous_questions: list of question ids
+    - Return: JSON object with a random question and not in the previous questions
+
+- Sample: curl http://127.0.0.1:5000/quizzes -X POST -H "Content-Type: application/json" -d '{"previous_questions": [13, 14], "quiz_category": {"type": "Art", "id": "2"}}'
+
+{
+  "question": {
+    "answer": "No", 
+    "category": 2, 
+    "difficulty": 3, 
+    "id": 26, 
+    "question": "CAN ANYBODY BE AN ARTIST"
+  }, 
+  "success": true
+}
 
 ## Testing
 To run the tests, run
